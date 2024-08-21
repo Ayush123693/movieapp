@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { getMovies } from './api';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -11,7 +10,8 @@ const MovieList = () => {
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const movies = await getMovies(query);
+      const response = await fetch(`https://api.example.com/movies?query=${query}`);
+      const movies = await response.json();
       setMovies(movies);
     };
     fetchMovies();
@@ -54,24 +54,11 @@ const MovieListContainer = ({ movies, query, onChangeQuery }) => {
   );
 };
 
-const MovieAPI = () => {
-  const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState('');
-
-  const getMovies = async (query) => {
-    const response = await getMovies(query);
-    return response.data;
-  };
-
-  return { movies, query, getMovies };
-};
-
-const { movies, query, getMovies } = MovieAPI();
-
 root.render(
   <React.StrictMode>
     <MovieList />
   </React.StrictMode>
 );
 
+// eslint-disable-next-line no-undef
 reportWebVitals();
