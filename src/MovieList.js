@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getMovies, searchMovies } from '../api';
+import { getMovies } from '../api';
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -15,7 +15,7 @@ const MovieList = () => {
 
   const handleSearch = async (query) => {
     setSearchQuery(query);
-    const movies = await searchMovies(query);
+    const movies = await getMovies(query);
     setMovies(movies);
   };
 

@@ -1,27 +1,20 @@
 import axios from 'axios';
 
-const API_KEY = 'YOUR_API_KEY'; 
-
 const api = axios.create({
   baseURL: 'https://www.omdbapi.com/',
   params: {
-    apikey: API_KEY,
+    apikey: 'YOUR_API_KEY', // replace with your own API key
   },
 });
 
-const getMovies = async () => {
-  const response = await api.get('s?');
+const getMovies = async (query = '', page = 1) => {
+  const response = await api.get(`s?${query}&page=${page}`);
   return response.data;
 };
 
-const searchMovies = async (query) => {
-  const response = await api.get('s', { params: { s: query } });
+const getMovieDetails = async (imdbId) => {
+  const response = await api.get(`i?i=${imdbId}&plot=full`);
   return response.data;
 };
 
-const getMovieDetails = async (imdbID) => {
-  const response = await api.get(`i/${imdbID}`);
-  return response.data;
-};
-
-export { getMovies, searchMovies, getMovieDetails };
+export { getMovies, getMovieDetails };

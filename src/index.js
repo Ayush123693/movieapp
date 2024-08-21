@@ -1,12 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { getMovies } from './api';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
+
+const MovieList = () => {
+  const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const movies = await getMovies(query);
+      setMovies(movies);
+    };
+    fetchMovies();
+  }, [query]);
+
+  return (
     <div>
       <header>
         <nav>
@@ -16,10 +27,51 @@ root.render(
           </ul>
         </nav>
       </header>
-      <App />
+      <MovieListContainer movies={movies} query={query} onChangeQuery={setQuery} />
     </div>
+  );
+};
+
+const MovieListContainer = ({ movies, query, onChangeQuery }) => {
+  return (
+    <main>
+      <input
+        type="search"
+        value={query}
+        onChange={(e) => onChangeQuery(e.target.value)}
+        placeholder="Search for movies"
+      />
+      <ul>
+        {movies.map((movie) => (
+          <li key={movie.imdbID}>
+            <img src={movie.Poster} alt={movie.Title} />
+            <h2>{movie.Title}</h2>
+            <p>{movie.Year}</p>
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+};
+
+const MovieAPI = () => {
+  const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState('');
+
+  const getMovies = async (query) => {
+    const response = await getMovies(query);
+    return response.data;
+  };
+
+  return { movies, query, getMovies };
+};
+
+const { movies, query, getMovies } = MovieAPI();
+
+root.render(
+  <React.StrictMode>
+    <MovieList />
   </React.StrictMode>
 );
-
 
 reportWebVitals();
