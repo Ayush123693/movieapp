@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav li {
+    display: inline-block;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .search-bar {
+    padding: 1em;
+  }
+  
+  .search-bar input[type="search"] {
+    width: 100%;
+  }
+  
+  .search-bar button[type="submit"] {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .filter-options {
+    padding: 1em;
+  }
+  
+  .filter-options select {
+    width: 100%;
+  }
+  
+  .filter-options input[type="range"] {
+    width: auto;
+  }
+  
+  .movie-list {
+    padding: 1em;
+  }
+  
+  .movie-list li {
+    margin-bottom: .5em;
+  }
+  
+  .movie-list img {
+    width: auto;
+  }
+  
+  .favorite-movies {
+    padding: .5em;
+  }
